@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Landing from './pages/Landing';
+import Register from './pages/Register';
 
 // Dummy placeholder components to keep the app from crashing
 const Login = () => (
@@ -8,11 +9,7 @@ const Login = () => (
     </div>
 );
 
-const Register = () => (
-    <div className="p-12 font-sans bg-gray-50 min-h-screen text-center">
-        <h1 className="text-2xl font-bold text-gray-800">Register Page</h1>
-    </div>
-);
+
 
 export default function App() {
     return (
