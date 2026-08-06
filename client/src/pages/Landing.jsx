@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import foodBg from '../assets/food_bg1.png';
 
-export default function Landing() {
+export default function FoodDiarySimple() {
     const navigate = useNavigate();
 
     return (
