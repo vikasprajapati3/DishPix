@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import foodBg from '../assets/food_bg1.png';
+import { FaChevronLeft } from 'react-icons/fa';
 
 export default function Login() {
     const navigate = useNavigate();
@@ -20,6 +21,14 @@ export default function Login() {
 
                 {/* Form card */}
                 <div className="w-full max-w-md bg-gray-950 border border-gray-800 p-6 sm:p-8 rounded-3xl shadow-2xl">
+
+                    <button
+                        onClick={() => navigate(-1)}
+                        className="absolute top-6 left-6 text-gray-400 hover:text-rose-500 transition-colors duration-200 flex items-center gap-1 text-sm font-semibold"
+                    >
+                        <FaChevronLeft className="text-xs" />
+                        Back
+                    </button>
 
                     {/* Logo and header */}
                     <div className="text-center mb-8">
@@ -53,9 +62,6 @@ export default function Login() {
                                 <label className="text-gray-300 text-xs sm:text-sm font-bold tracking-wide uppercase">
                                     Password
                                 </label>
-                                <span className="text-xs text-rose-500 font-semibold cursor-pointer hover:underline">
-                                    Forgot?
-                                </span>
                             </div>
                             <input
                                 type="password"
@@ -73,6 +79,16 @@ export default function Login() {
                         </button>
 
                     </div>
+                    {/* Footer link */}
+                    <p className="text-center text-gray-400 text-xs sm:text-sm mt-6">
+                        Don't have an account?{' '}
+                        <span
+                            onClick={() => navigate('/register')}
+                            className="text-rose-500 hover:underline cursor-pointer font-semibold"
+                        >
+                            Sign Up
+                        </span>
+                    </p>
 
                 </div>
             </div>
