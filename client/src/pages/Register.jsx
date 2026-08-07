@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import foodBg from '../assets/food_bg1.png';
+import { FaChevronLeft } from 'react-icons/fa';
 
 export default function Register() {
     const navigate = useNavigate();
@@ -18,10 +19,16 @@ export default function Register() {
             {/* Main container */}
             <div className="flex-1 flex flex-col items-center justify-center z-10 px-5 py-12">
 
-
                 {/* Form card */}
                 <div className="w-full max-w-md bg-gray-950 border border-gray-800 p-6 sm:p-8 rounded-3xl shadow-2xl">
 
+                    <button
+                        onClick={() => navigate(-1)}
+                        className="absolute top-6 left-6 text-gray-400 hover:text-rose-500 transition-colors duration-200 flex items-center gap-1 text-sm font-semibold"
+                    >
+                        <FaChevronLeft className="text-xs" />
+                        Back
+                    </button>
                     {/* Logo and header */}
                     <div className="text-center mb-8">
                         <h1 className="text-3xl sm:text-4xl font-black tracking-wider uppercase mb-2">
@@ -44,19 +51,7 @@ export default function Register() {
                             <input
                                 type="text"
                                 placeholder="@username"
-                                className="w-full bg-gray-900 border border-gray-700 rounded-full px-5 py-3 text-white text-sm sm:text-base placeholder-gray-500 focus:outline-none focus:border-rose-500 transition-all"
-                            />
-                        </div>
-
-                        {/* Email field */}
-                        <div className="flex flex-col gap-2">
-                            <label className="text-gray-300 text-xs sm:text-sm font-bold tracking-wide uppercase px-1">
-                                Email
-                            </label>
-                            <input
-                                type="email"
-                                placeholder="you@example.com"
-                                className="w-full bg-gray-900 border border-gray-700 rounded-full px-5 py-3 text-white text-sm sm:text-base placeholder-gray-500 focus:outline-none focus:border-rose-500 transition-all"
+                                className="w-full bg-gray-900 border border-gray-700 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-rose-500 transition-colors"
                             />
                         </div>
 
@@ -68,18 +63,26 @@ export default function Register() {
                             <input
                                 type="password"
                                 placeholder="••••••••"
-                                className="w-full bg-gray-900 border border-gray-700 rounded-full px-5 py-3 text-white text-sm sm:text-base placeholder-gray-500 focus:outline-none focus:border-rose-500 transition-all"
+                                className="w-full bg-gray-900 border border-gray-700 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-rose-500 transition-colors"
                             />
                         </div>
 
-                        {/* Submit button */}
-                        <button
-                            onClick={() => navigate('/feed')}
-                            className="w-full bg-rose-500 text-white font-bold text-base sm:text-lg tracking-wider uppercase py-4 rounded-full shadow-lg hover:bg-rose-600 transition-all cursor-pointer mt-2 text-center"
-                        >
-                            Create Account
+                        {/* Submit Button */}
+                        <button className="w-full bg-rose-500 hover:bg-rose-600 text-white font-bold py-3 px-4 rounded-xl mt-2 transition-colors duration-200">
+                            Sign Up
                         </button>
                     </div>
+
+                    {/* Footer link */}
+                    <p className="text-center text-gray-400 text-xs sm:text-sm mt-6">
+                        Already have an account?{' '}
+                        <span
+                            onClick={() => navigate('/login')}
+                            className="text-rose-500 hover:underline cursor-pointer font-semibold"
+                        >
+                            Log In
+                        </span>
+                    </p>
 
                 </div>
             </div>
