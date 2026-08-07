@@ -55,10 +55,34 @@ export default function Register() {
                             />
                         </div>
 
+                        {/* Email field */}
+                        <div className="flex flex-col gap-2">
+                            <label className="text-gray-300 text-xs sm:text-sm font-bold tracking-wide uppercase px-1">
+                                Email
+                            </label>
+                            <input
+                                type="email"
+                                placeholder="example@gmail.com"
+                                className="w-full bg-gray-900 border border-gray-700 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-rose-500 transition-colors"
+                            />
+                        </div>
+
                         {/* Password field */}
                         <div className="flex flex-col gap-2">
                             <label className="text-gray-300 text-xs sm:text-sm font-bold tracking-wide uppercase px-1">
                                 Password
+                            </label>
+                            <input
+                                type="password"
+                                placeholder="••••••••"
+                                className="w-full bg-gray-900 border border-gray-700 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-rose-500 transition-colors"
+                            />
+                        </div>
+
+                        {/* Confirm Password field */}
+                        <div className="flex flex-col gap-2">
+                            <label className="text-gray-300 text-xs sm:text-sm font-bold tracking-wide uppercase px-1">
+                                Confirm Password
                             </label>
                             <input
                                 type="password"
