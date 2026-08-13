@@ -8,7 +8,7 @@ export default function Register() {
 
     return (
         <div
-            className="w-full min-h-screen flex flex-col font-sans select-none relative bg-cover bg-center bg-no-repeat"
+            className="w-full h-screen flex flex-col font-sans select-none relative bg-cover bg-center bg-no-repeat overflow-hidden"
             style={{
                 backgroundImage: `url(${foodBg})`
             }}
@@ -17,11 +17,12 @@ export default function Register() {
             <div className="absolute inset-0 bg-black opacity-80 z-0"></div>
 
             {/* Main container */}
-            <div className="flex-1 flex flex-col items-center justify-center z-10 px-5 py-12">
+            <div className="flex-1 flex flex-col items-center justify-center z-10 px-5 py-4">
 
                 {/* Form card */}
-                <div className="w-full max-w-md bg-gray-950 border border-gray-800 p-6 sm:p-8 rounded-3xl shadow-2xl">
+                <div className="w-full max-w-md bg-gray-950 border border-gray-800 p-5 sm:p-6 rounded-3xl shadow-2xl">
 
+                    {/* Back button */}
                     <button
                         onClick={() => navigate(-1)}
                         className="absolute top-6 left-6 text-gray-400 hover:text-rose-500 transition-colors duration-200 flex items-center gap-1 text-sm font-semibold"
@@ -29,76 +30,82 @@ export default function Register() {
                         <FaChevronLeft className="text-xs" />
                         Back
                     </button>
+
                     {/* Logo and header */}
-                    <div className="text-center mb-8">
-                        <h1 className="text-3xl sm:text-4xl font-black tracking-wider uppercase mb-2">
+                    <div className="text-center mb-5">
+                        <h1 className="text-3xl sm:text-4xl font-black tracking-wider uppercase mb-1">
                             <span className="text-white">Dish</span>
                             <span className="text-rose-500">Pix</span>
                         </h1>
-                        <p className="text-gray-300 text-sm sm:text-base font-medium">
+
+                        <p className="text-gray-300 text-sm font-medium">
                             Create your account
                         </p>
                     </div>
 
                     {/* Input fields stack */}
-                    <div className="flex flex-col gap-5">
+                    <div className="flex flex-col gap-3.5">
 
                         {/* Username field */}
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-1.5">
                             <label className="text-gray-300 text-xs sm:text-sm font-bold tracking-wide uppercase px-1">
                                 Username
                             </label>
+
                             <input
                                 type="text"
                                 placeholder="@username"
-                                className="w-full bg-gray-900 border border-gray-700 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-rose-500 transition-colors"
+                                className="w-full bg-gray-900 border border-gray-700 text-white rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rose-500 transition-colors"
                             />
                         </div>
 
                         {/* Email field */}
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-1.5">
                             <label className="text-gray-300 text-xs sm:text-sm font-bold tracking-wide uppercase px-1">
                                 Email
                             </label>
+
                             <input
                                 type="email"
                                 placeholder="example@gmail.com"
-                                className="w-full bg-gray-900 border border-gray-700 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-rose-500 transition-colors"
+                                className="w-full bg-gray-900 border border-gray-700 text-white rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rose-500 transition-colors"
                             />
                         </div>
 
                         {/* Password field */}
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-1.5">
                             <label className="text-gray-300 text-xs sm:text-sm font-bold tracking-wide uppercase px-1">
                                 Password
                             </label>
+
                             <input
                                 type="password"
                                 placeholder="••••••••"
-                                className="w-full bg-gray-900 border border-gray-700 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-rose-500 transition-colors"
+                                className="w-full bg-gray-900 border border-gray-700 text-white rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rose-500 transition-colors"
                             />
                         </div>
 
                         {/* Confirm Password field */}
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col gap-1.5">
                             <label className="text-gray-300 text-xs sm:text-sm font-bold tracking-wide uppercase px-1">
                                 Confirm Password
                             </label>
+
                             <input
                                 type="password"
                                 placeholder="••••••••"
-                                className="w-full bg-gray-900 border border-gray-700 text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-rose-500 transition-colors"
+                                className="w-full bg-gray-900 border border-gray-700 text-white rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-rose-500 transition-colors"
                             />
                         </div>
 
                         {/* Submit Button */}
-                        <button className="w-full bg-rose-500 hover:bg-rose-600 text-white font-bold py-3 px-4 rounded-xl mt-2 transition-colors duration-200">
+                        <button className="w-full bg-rose-500 hover:bg-rose-600 text-white font-bold py-2.5 px-4 rounded-xl mt-1 transition-colors duration-200">
                             Sign Up
                         </button>
                     </div>
 
                     {/* Footer link */}
-                    <p className="text-center text-gray-400 text-xs sm:text-sm mt-6">
+                    <p className="text-center text-gray-400 text-xs sm:text-sm mt-4">
                         Already have an account?{' '}
                         <span
                             onClick={() => navigate('/login')}
