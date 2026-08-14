@@ -5,13 +5,15 @@ import generateToken from "../utils/generateToken.js";
 
 export const registerUser = async (req, res) => {
     try {
-        const { name, email, password } = req.body;
+        const { username, email, password } = req.body;
 
-        if (!name || !email || !password) {
+        if (!username || !email || !password) {
             return res.status(400).json({
                 message: "Please fill all fields",
             });
         }
+
+
 
         const userExists = await User.findOne({ email });
 
@@ -22,14 +24,14 @@ export const registerUser = async (req, res) => {
         }
 
         const user = await User.create({
-            name,
+            username,
             email,
             password,
         });
 
         res.status(201).json({
             _id: user._id,
-            name: user.name,
+            username: user.username,
             email: user.email,
             token: generateToken(user._id),
         });
@@ -52,7 +54,7 @@ export const loginUser = async (req, res) => {
         if (user && (await user.matchPassword(password))) {
             return res.json({
                 _id: user._id,
-                name: user.name,
+                username: user.username,
                 email: user.email,
                 token: generateToken(user._id),
             });
