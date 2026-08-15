@@ -16,7 +16,9 @@ app.use(cors({
     origin: [
         "http://localhost:5173",
         "https://dish-pix.vercel.app"
-    ]
+    ],
+    methods: ["GET", "POST"],
+    credentials: true
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
