@@ -15,7 +15,7 @@ connectDB();
 app.use(cors({
     origin: [
         "http://localhost:5173",
-        "https://your-dishpix.vercel.app"
+        "https://dish-pix.vercel.app"
     ]
 }));
 app.use(express.json());
