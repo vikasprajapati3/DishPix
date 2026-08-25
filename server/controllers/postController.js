@@ -1,4 +1,3 @@
-
 import Post from "../models/Post.js";
 
 // new post
