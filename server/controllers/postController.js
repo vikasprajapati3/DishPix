@@ -1,20 +1,26 @@
 import Post from "../models/Post.js";
 
 // new post
-export const createPost = async (req, res) => {
+const createPost = async (req, res) => {
     try {
         const { restaurant, foodName, caption, rating, image } = req.body;
 
-        const post = new Post({
+        if (!restaurant || !foodName || !caption || !rating) {
+            return res.status(400).json({
+                success: false,
+                message: "All fields are required",
+            });
+        }
+
+        const post = await Post.create({
             userId: req.user._id,
             restaurant: restaurant,
             foodName: foodName,
             caption: caption,
             rating: rating,
-            image: image,
+            image: req.file ? req.file.path : "",
         });
 
-        await post.save();
 
         res.status(201).json({
             message: "Post created successfully",
