@@ -1,7 +1,7 @@
 import express from "express";
-import { createPost } from "../controllers/postController.js";
+import createPost from "../controllers/postController.js";
 import protect from "../middleware/authMiddleware.js";
-import upload from "../middleware/uploadMiddleware.js";
+import upload from "../middleware/upload.js";
 
 const router = express.Router();
 
