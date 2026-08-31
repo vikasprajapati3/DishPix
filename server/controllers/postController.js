@@ -3,7 +3,9 @@ import Post from "../models/Post.js";
 // new post
 const createPost = async (req, res) => {
     try {
-        const { restaurant, foodName, caption, rating, image } = req.body;
+        const { restaurant, foodName, caption, rating } = req.body;
+
+        let localFilePath = req.file ? req.file.path : "";
 
         if (!restaurant || !foodName || !caption || !rating) {
             return res.status(400).json({
@@ -12,13 +14,19 @@ const createPost = async (req, res) => {
             });
         }
 
+        const result = await cloudinary.uploader
+            .upload(localFilePath, {
+                folder: "Dishpix/Posts",
+                resource_type: "image",
+            });
+
         const post = await Post.create({
             userId: req.user._id,
             restaurant: restaurant,
             foodName: foodName,
             caption: caption,
             rating: rating,
-            image: req.file ? req.file.path : "",
+            image: result.secure_url,
         });
 
 
@@ -27,7 +35,16 @@ const createPost = async (req, res) => {
             post: post,
         });
 
+        // Delete temporary image from disk 
+        await fs.unlink(localFilePath);
+
     } catch (error) {
+        console.log("POST ERROR:", error);
+
+        if (localFilePath) {
+            await fs.unlink(localFilePath);
+        }
+
         res.status(500).json({
             message: error.message,
         });
