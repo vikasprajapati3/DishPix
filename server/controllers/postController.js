@@ -1,11 +1,15 @@
 import Post from "../models/Post.js";
+import cloudinary from "../utils/cloudinary.js";
+import fs from "fs/promises";
+
 
 // new post
 const createPost = async (req, res) => {
+    let localFilePath;
     try {
         const { restaurant, foodName, caption, rating } = req.body;
 
-        let localFilePath = req.file ? req.file.path : "";
+        localFilePath = req.file ? req.file.path : "";
 
         if (!restaurant || !foodName || !caption || !rating) {
             return res.status(400).json({
