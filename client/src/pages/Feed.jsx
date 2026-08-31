@@ -1,6 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function Feed() {
+
+    const navigate = useNavigate();
 
     const posts = [
         {
@@ -24,20 +28,23 @@ export default function Feed() {
     ];
 
     return (
-
         <div className="p-4 bg-gray-100 min-h-screen">
 
             <div className="flex justify-between items-center mb-4">
+
                 <h1 className="text-2xl font-bold">
                     Dish<span className="text-red-500">Pix</span>
                 </h1>
+
                 <button
-                    // onClick={ }
+                    onClick={() => navigate("/create-post")}
                     className="bg-red-500 text-white px-4 py-2 rounded-lg"
                 >
                     + Create Post
                 </button>
+
             </div>
+
             {posts.map((post) => (
                 <div
                     key={post.id}
@@ -59,7 +66,10 @@ export default function Feed() {
                     />
 
                     <div className="mt-3">
-                        <button>❤️ {post.likes}</button>
+                        <button>
+                            ❤️ {post.likes}
+                        </button>
+
                         <button className="ml-4">
                             💬 {post.comments}
                         </button>
