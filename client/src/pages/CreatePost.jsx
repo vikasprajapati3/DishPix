@@ -16,3 +16,5 @@ function CreatePost() {
     const [preview, setPreview] = useState("");
     const [loading, setLoading] = useState(false);
 }
+
+export default CreatePost;
