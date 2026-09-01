@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import foodBg from '../assets/food_bg1.png';
+import BottomNav from '../components/BottomNavbar';
 
 export default function Landing() {
     const navigate = useNavigate();
@@ -55,6 +56,7 @@ export default function Landing() {
                 </div>
 
             </div>
+            <BottomNav />
         </div>
     );
 }
