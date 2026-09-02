@@ -8,7 +8,7 @@ export default function Landing() {
 
     return (
         <div
-            className="w-full min-h-screen flex flex-col font-sans select-none relative bg-cover bg-center bg-no-repeat"
+            className="w-full h-dvh flex flex-col font-sans select-none relative bg-cover bg-center bg-no-repeat"
             style={{ backgroundImage: `url(${foodBg})` }}
         >
             {/* Background overlay */}
