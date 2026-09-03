@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import BottomNavbar from "../components/BottomNavbar";
+import PostCard from "../components/PostCard";
 
 export default function Feed() {
 
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+
 
     const posts = [
         {
@@ -28,7 +32,7 @@ export default function Feed() {
     ];
 
     return (
-        <div className="p-4 bg-gray-100 min-h-screen">
+        <div className="p-4 bg-[var(--background)] min-h-screen">
 
             <div className="flex justify-between items-center mb-4">
 
@@ -38,50 +42,30 @@ export default function Feed() {
 
                 <button
                     onClick={() => navigate("/create-post")}
-                    className="bg-red-500 text-white px-4 py-2 rounded-lg"
+                    className="bg-[var(--primary)] text-white px-4 py-2 rounded-lg"
                 >
                     + Create Post
                 </button>
 
             </div>
 
-            {posts.map((post) => (
-                <div
-                    key={post.id}
-                    className="bg-white p-4 mt-4 rounded-lg"
-                >
-
-                    <h2 className="font-bold">
-                        {post.user}
-                    </h2>
-
-                    <p className="text-gray-600">
-                        {post.restaurant}
+            {/* Posts */}
+            {loading ? (
+                <div className="flex items-center justify-center min-h-[70vh]">
+                    <p className="text-[var(--muted)]">
+                        Loading posts...
                     </p>
-
-                    <img
-                        src={post.image}
-                        alt={post.restaurant}
-                        className="w-full mt-3 rounded-lg"
-                    />
-
-                    <div className="mt-3">
-                        <button>
-                            ❤️ {post.likes}
-                        </button>
-
-                        <button className="ml-4">
-                            💬 {post.comments}
-                        </button>
-                    </div>
-
-                    <p className="mt-2">
-                        {post.caption}
-                    </p>
-
                 </div>
-            ))}
+            ) : (
+                posts.map((posts) => (
+                    <PostCard
+                        key={posts.id}
+                        post={posts}
+                    />
+                ))
+            )}
 
+            <BottomNavbar />
         </div>
     );
 }
