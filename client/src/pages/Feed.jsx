@@ -32,7 +32,7 @@ export default function Feed() {
     ];
 
     return (
-        <div className="p-4 bg-[var(--background)] min-h-screen">
+        <div className="p-4 bg-(--background) min-h-screen">
 
             <div className="flex justify-between items-center mb-4">
 
@@ -42,7 +42,7 @@ export default function Feed() {
 
                 <button
                     onClick={() => navigate("/create-post")}
-                    className="bg-[var(--primary)] text-white px-4 py-2 rounded-lg"
+                    className="bg-(--primary) text-white px-4 py-2 rounded-lg"
                 >
                     + Create Post
                 </button>
@@ -52,7 +52,7 @@ export default function Feed() {
             {/* Posts */}
             {loading ? (
                 <div className="flex items-center justify-center min-h-[70vh]">
-                    <p className="text-[var(--muted)]">
+                    <p className="text-(--muted)">
                         Loading posts...
                     </p>
                 </div>

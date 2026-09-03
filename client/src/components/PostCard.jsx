@@ -6,7 +6,7 @@ import {
 
 export default function PostCard({ post }) {
     return (
-        <div className="bg-[var(--card)] p-4 mt-4 rounded-lg">
+        <div className="bg-(--card) p-4 mt-4 rounded-lg">
 
             {/* Post Header */}
             <div className="flex justify-between items-center">
@@ -16,7 +16,7 @@ export default function PostCard({ post }) {
                         {post.user}
                     </h2>
 
-                    <p className="text-[var(--muted)]">
+                    <p className="text-(--muted)">
                         {post.restaurant}
                     </p>
                 </div>
@@ -39,7 +39,7 @@ export default function PostCard({ post }) {
                     <span>{post.likes}</span>
                 </button>
 
-                <button className="flex items-center gap-2 text-[var(--muted)]">
+                <button className="flex items-center gap-2 text-(--muted)">
                     <FontAwesomeIcon icon={faComment} />
                     <span>{post.comments}</span>
                 </button>
