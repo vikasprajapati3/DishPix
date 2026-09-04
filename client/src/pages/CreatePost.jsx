@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { FaChevronLeft } from "react-icons/fa";
 
 export default function CreatePost() {
     const navigate = useNavigate();
@@ -82,7 +83,7 @@ export default function CreatePost() {
                     onClick={() => navigate("/")}
                     className="text-sm text-(--muted)"
                 >
-                    ← Back
+                    <FaChevronLeft /> Back
                 </button>
                 <h1 className="text-2xl font-bold">
                     Create <span className="text-red-500">Post</span>
