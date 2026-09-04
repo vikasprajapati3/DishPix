@@ -69,10 +69,7 @@ export default function Register() {
     };
 
     return (
-        <div
-            className="w-full h-screen flex flex-col font-sans select-none relative bg-cover bg-center bg-no-repeat overflow-hidden"
-
-        >
+        <div className="w-full h-screen flex flex-col font-sans select-none relative bg-cover bg-center bg-no-repeat overflow-hidden">
             <div
                 className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0 opacity-30"
                 style={{
