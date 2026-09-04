@@ -19,6 +19,16 @@ export default function Register() {
     const handleRegister = async (e) => {
         e.preventDefault();
 
+        if (!username.trim() || !email.trim() || !password || !confirmPassword) {
+            alert("Please fill in all fields");
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            alert("Passwords do not match");
+            return;
+        }
+
         try {
             setLoading(true);
 
