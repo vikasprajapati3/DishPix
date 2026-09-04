@@ -20,9 +20,9 @@ export default function App() {
 
                     <Route path="/register" element={<Register />} />
 
-                    <Route path="/feed" element={<Feed />} />
-                    <Route element={<ProtectedRoute />}>
 
+                    <Route element={<ProtectedRoute />}>
+                        <Route path="/feed" element={<Feed />} />
                         <Route path="/create-post" element={<CreatePost />} />
                     </Route>
 
