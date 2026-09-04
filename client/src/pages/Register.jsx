@@ -85,21 +85,21 @@ export default function Register() {
 
             {/* Main container */}
             <div className="flex-1 flex flex-col items-center justify-center z-10 px-5 py-4">
-
+                {/* Back button */}
+                <div className="w-full max-w-md mb-3">
+                    <button
+                        type="button"
+                        onClick={() => navigate(-1)}
+                        className="flex items-center gap-2 text-(--muted) hover:text-(--primary) transition-colors duration-200 text-sm font-semibold"
+                    >
+                        <FaChevronLeft className="text-xs" />
+                        Back
+                    </button>
+                </div>
                 {/* Form card */}
                 <div className="w-full max-w-md bg-(--card) border border-(--border) p-5 sm:p-6 rounded-3xl shadow-2xl">
 
-                    {/* Back button */}
-                    <div className="w-full max-w-md mb-3">
-                        <button
-                            type="button"
-                            onClick={() => navigate(-1)}
-                            className="flex items-center gap-2 text-(--muted) hover:text-(--primary) transition-colors duration-200 text-sm font-semibold"
-                        >
-                            <FaChevronLeft className="text-xs" />
-                            Back
-                        </button>
-                    </div>
+
 
                     {/* Logo and header */}
                     <div className="text-center mb-5">
