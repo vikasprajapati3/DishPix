@@ -6,6 +6,8 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Feed from "./pages/Feed";
 import CreatePost from "./pages/CreatePost";
+import Profile from "./pages/Profile";
+
 import ProtectedRoute from "./components/ProtectedRoute";
 
 export default function App() {
@@ -22,6 +24,7 @@ export default function App() {
 
 
                     <Route element={<ProtectedRoute />}>
+                        <Route path="/profile" element={<Profile />} />
                         <Route path="/feed" element={<Feed />} />
                         <Route path="/create-post" element={<CreatePost />} />
                     </Route>
