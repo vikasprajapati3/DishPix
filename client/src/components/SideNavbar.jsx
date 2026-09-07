@@ -13,7 +13,7 @@ const SideNavbar = () => {
     const { pathname } = useLocation();
 
     const items = [
-        { label: "Home", icon: faHouse, path: "/home" },
+        { label: "Home", icon: faHouse, path: "/" },
         { label: "Search", icon: faMagnifyingGlass, path: "/feed" },
         { label: "Create", icon: faPlus, path: "/create-post" },
         { label: "Notifications", icon: faHeart, path: "/notifications" },
