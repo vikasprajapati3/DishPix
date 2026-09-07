@@ -30,7 +30,7 @@ const BottomNavbar = () => {
                 </button>
 
                 <button
-                    onClick={() => navigate("/create")}
+                    onClick={() => navigate("/create-post")}
                     className="bg-rose-500 text-white w-12 h-12 rounded-full flex items-center justify-center text-xl"
                 >
                     <FontAwesomeIcon icon={faPlus} />
