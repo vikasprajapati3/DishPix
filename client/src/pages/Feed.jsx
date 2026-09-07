@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BottomNavbar from "../components/BottomNavbar";
 import PostCard from "../components/PostCard";
+import SideNavbar from "../components/SideNavbar";
 
 export default function Feed() {
     const navigate = useNavigate();
@@ -61,7 +62,9 @@ export default function Feed() {
     return (
         <div className="w-full min-h-screen bg-white font-sans pb-16 overflow-x-hidden">
 
-            {/* Instagram-style Header */}
+            <SideNavbar />
+
+            {/* Header */}
             <header className="sticky top-0 z-50 bg-white border-b border-neutral-200">
                 <div className="max-w-xl mx-auto h-14 px-4 flex items-center justify-between">
 

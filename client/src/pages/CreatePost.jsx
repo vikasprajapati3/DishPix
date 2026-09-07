@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FaChevronLeft } from "react-icons/fa";
+import SideNavbar from "../components/SideNavbar";
 
 export default function CreatePost() {
     const navigate = useNavigate();
@@ -76,14 +77,16 @@ export default function CreatePost() {
 
     return (
         <div className="p-4 bg-(--background) min-h-screen max-w-md mx-auto">
+            <SideNavbar />
 
             {/* Header */}
             <div className="flex justify-between items-center mb-4">
                 <button
-                    onClick={() => navigate("/")}
+                    onClick={() => navigate(-1)}
                     className="text-sm text-(--muted)"
                 >
-                    <FaChevronLeft /> Back
+                    <FaChevronLeft />
+                    Back
                 </button>
                 <h1 className="text-2xl font-bold">
                     Create <span className="text-red-500">Post</span>
