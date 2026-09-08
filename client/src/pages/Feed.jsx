@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import BottomNavbar from "../components/BottomNavbar";
 import PostCard from "../components/PostCard";
@@ -7,55 +7,84 @@ import SideNavbar from "../components/SideNavbar";
 
 export default function Feed() {
     const navigate = useNavigate();
-    const [loading, setLoading] = useState(false);
 
-    const [posts, setPosts] = useState([
-        {
-            id: 1,
-            user: "victor",
-            restaurant: "Pizza Haven",
-            location: "Downtown",
-            image:
-                "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=800",
-            likes: 142,
-            hasLiked: false,
-            comments: 18,
-            caption: "Best Pizza I have had all year!",
-            timeAgo: "2h ago",
-        },
-        {
-            id: 2,
-            user: "Abhishek",
-            restaurant: "Burger House",
-            location: "Westside",
-            image:
-                "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800",
-            likes: 98,
-            hasLiked: false,
-            comments: 12,
-            caption: "This burger was absolutely amazing!",
-            timeAgo: "5h ago",
-        },
-    ]);
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
 
-    // Like / Unlike post
-    const handleLike = (postId) => {
-        setPosts((currentPosts) =>
-            currentPosts.map((post) => {
-                if (post.id !== postId) {
-                    return post;
+    useEffect(() => {
+        fetchPosts();
+    }, []);
+
+    const fetchPosts = async () => {
+        try {
+            setLoading(true);
+
+            const token = localStorage.getItem("token");
+
+            const response = await fetch(
+                "http://localhost:5000/api/posts",
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
                 }
+            );
 
-                return {
-                    ...post,
-                    hasLiked: !post.hasLiked,
-                    likes: post.hasLiked
-                        ? post.likes - 1
-                        : post.likes + 1,
-                };
-            })
-        );
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(
+                    data.message || "Failed to fetch posts"
+                );
+            }
+
+            setPosts(data.posts);
+
+        } catch (error) {
+            console.error("FETCH POSTS ERROR:", error);
+            setError(error.message);
+        } finally {
+            setLoading(false);
+        }
     };
+
+    if (loading) {
+        return (
+            <div>
+                Loading posts...
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div>
+                {error}
+            </div>
+        );
+    }
+
+    // // Like / Unlike post
+    // const handleLike = (postId) => {
+    //     setPosts((currentPosts) =>
+    //         currentPosts.map((post) => {
+    //             if (post.id !== postId) {
+    //                 return post;
+    //             }
+
+    //             return {
+    //                 ...post,
+    //                 hasLiked: !post.hasLiked,
+    //                 likes: post.hasLiked
+    //                     ? post.likes - 1
+    //                     : post.likes + 1,
+    //             };
+    //         })
+    //     );
+    // };
 
 
 
@@ -87,9 +116,6 @@ export default function Feed() {
                     >
                         + Create Post
                     </button>
-
-
-
 
                 </div>
             </header>
@@ -125,7 +151,7 @@ export default function Feed() {
 
                         {posts.map((post, index) => (
                             <div
-                                key={post.id}
+                                key={post._id}
                                 className={`
                                     w-full
                                     ${index !== posts.length - 1
@@ -136,7 +162,7 @@ export default function Feed() {
                             >
                                 <PostCard
                                     post={post}
-                                    onLike={handleLike}
+                                //  onLike={handleLike}
                                 />
                             </div>
                         ))}
