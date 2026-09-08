@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema(
         username: {
             type: String,
             required: true,
+            unique: true,
             trim: true,
         },
 
@@ -21,6 +22,34 @@ const userSchema = new mongoose.Schema(
             type: String,
             required: true,
             minlength: 6,
+            select: false,
+        },
+
+        fullName: {
+            type: String,
+            trim: true,
+            default: "",
+        },
+
+        bio: {
+            type: String,
+            trim: true,
+            default: "",
+        },
+
+        profileImage: {
+            type: String,
+            default: "",
+        },
+
+        followersCount: {
+            type: Number,
+            default: 0,
+        },
+
+        followingCount: {
+            type: Number,
+            default: 0,
         },
     },
     {
