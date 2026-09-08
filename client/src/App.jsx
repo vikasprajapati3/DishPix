@@ -7,8 +7,10 @@ import Login from "./pages/Login";
 import Feed from "./pages/Feed";
 import CreatePost from "./pages/CreatePost";
 import Profile from "./pages/Profile";
+import Notification from "./pages/Notification";
 
 import ProtectedRoute from "./components/ProtectedRoute";
+import Search from "./pages/SearchPage";
 
 export default function App() {
     return (
@@ -27,6 +29,9 @@ export default function App() {
                         <Route path="/profile" element={<Profile />} />
                         <Route path="/feed" element={<Feed />} />
                         <Route path="/create-post" element={<CreatePost />} />
+                        <Route path="/search" element={<Search />} />
+                        <Route path="/notifications" element={<Notification />} />
+
                     </Route>
 
                 </Routes>

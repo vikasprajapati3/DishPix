@@ -23,7 +23,7 @@ const BottomNavbar = () => {
                 </button>
 
                 <button
-                    onClick={() => navigate("/search")}
+                    onClick={() => navigate("/feed")}
                     className="text-rose-500 text-xl"
                 >
                     <FontAwesomeIcon icon={faMagnifyingGlass} />
