@@ -59,7 +59,75 @@ const postSchema = new mongoose.Schema(
     }
 );
 
-
 const Post = mongoose.model("Post", postSchema);
 
-export default Post;
+// LIKE
+
+const likeSchema = new mongoose.Schema(
+    {
+        userId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            required: true,
+        },
+
+        postId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Post",
+            required: true,
+        },
+    },
+    {
+        timestamps: true,
+    }
+);
+
+
+// One user can like a post only once
+likeSchema.index(
+    {
+        userId: 1,
+        postId: 1,
+    },
+    {
+        unique: true,
+    }
+);
+
+
+const Like = mongoose.model("Like", likeSchema);
+
+// COMMENT
+
+const commentSchema = new mongoose.Schema(
+    {
+        userId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            required: true,
+        },
+
+        postId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Post",
+            required: true,
+        },
+
+        text: {
+            type: String,
+            required: true,
+            trim: true,
+        },
+    },
+    {
+        timestamps: true,
+    }
+);
+
+
+const Comment = mongoose.model("Comment", commentSchema);
+
+
+
+
+export default { Post, Like, Comment };
