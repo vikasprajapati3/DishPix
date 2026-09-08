@@ -7,20 +7,23 @@ const postSchema = new mongoose.Schema(
             ref: "User",
             required: true,
         },
+
         restaurant: {
             type: String,
             required: true,
-
+            trim: true,
         },
 
         foodName: {
             type: String,
             required: true,
+            trim: true,
         },
 
         caption: {
             type: String,
             required: true,
+            trim: true,
         },
 
         rating: {
@@ -32,13 +35,30 @@ const postSchema = new mongoose.Schema(
 
         image: {
             type: String,
+            required: true,
+        },
+
+        location: {
+            type: String,
             default: "",
+            trim: true,
+        },
+
+        likesCount: {
+            type: Number,
+            default: 0,
+        },
+
+        commentsCount: {
+            type: Number,
+            default: 0,
         },
     },
     {
         timestamps: true,
     }
 );
+
 
 const Post = mongoose.model("Post", postSchema);
 
