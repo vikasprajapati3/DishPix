@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FaChevronLeft } from "react-icons/fa";
 import SideNavbar from "../components/SideNavbar";
+import BottomNavbar from "../components/BottomNavbar";
 
 export default function CreatePost() {
     const navigate = useNavigate();
@@ -178,6 +179,7 @@ export default function CreatePost() {
                 </button>
 
             </form>
+            <BottomNavbar />
         </div>
     );
 }
