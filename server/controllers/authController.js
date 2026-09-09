@@ -91,3 +91,88 @@ export const loginUser = async (req, res) => {
 export const getMe = async (req, res) => {
     res.json(req.user);
 };
+
+// Update User
+export const updateProfile = async (req, res) => {
+    try {
+        const {
+            username,
+            email,
+            fullName,
+            bio,
+            profileImage,
+        } = req.body;
+
+        const user = await User.findById(req.user._id);
+
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found",
+            });
+        }
+
+        // Check username uniqueness
+        if (username && username.trim() !== user.username) {
+            const usernameExists = await User.findOne({
+                username: username.trim(),
+                _id: { $ne: user._id },
+            });
+
+            if (usernameExists) {
+                return res.status(400).json({
+                    message: "Username already exists",
+                });
+            }
+
+            user.username = username.trim();
+        }
+
+        // Check email uniqueness
+        if (email && email.trim().toLowerCase() !== user.email) {
+            const emailExists = await User.findOne({
+                email: email.trim().toLowerCase(),
+                _id: { $ne: user._id },
+            });
+
+            if (emailExists) {
+                return res.status(400).json({
+                    message: "Email already exists",
+                });
+            }
+
+            user.email = email.trim().toLowerCase();
+        }
+
+        // Update other profile fields
+        if (fullName !== undefined) {
+            user.fullName = fullName.trim();
+        }
+
+        if (bio !== undefined) {
+            user.bio = bio.trim();
+        }
+
+        if (profileImage !== undefined) {
+            user.profileImage = profileImage;
+        }
+
+        const updatedUser = await user.save();
+
+        res.json({
+            message: "Profile updated successfully",
+            user: {
+                _id: updatedUser._id,
+                username: updatedUser.username,
+                email: updatedUser.email,
+                fullName: updatedUser.fullName,
+                bio: updatedUser.bio,
+                profileImage: updatedUser.profileImage,
+            },
+        });
+
+    } catch (error) {
+        res.status(500).json({
+            message: error.message,
+        });
+    }
+};
