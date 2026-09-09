@@ -1,8 +1,7 @@
 import User from "../models/User.js";
 import generateToken from "../utils/generateToken.js";
 
-//Register User
-
+// Register User
 export const registerUser = async (req, res) => {
     try {
         const { username, email, password } = req.body;
@@ -13,13 +12,17 @@ export const registerUser = async (req, res) => {
             });
         }
 
-
-
-        const userExists = await User.findOne({ email });
+        // Check username OR email already exists
+        const userExists = await User.findOne({
+            $or: [
+                { email: email.toLowerCase() },
+                { username: username },
+            ],
+        });
 
         if (userExists) {
             return res.status(400).json({
-                message: "User already exists",
+                message: "Username or email already exists",
             });
         }
 
@@ -43,13 +46,25 @@ export const registerUser = async (req, res) => {
     }
 };
 
+
 // Login User
 export const loginUser = async (req, res) => {
     try {
+        const { login, password } = req.body;
 
-        const { email, password } = req.body;
+        if (!login || !password) {
+            return res.status(400).json({
+                message: "Please enter username/email and password",
+            });
+        }
 
-        const user = await User.findOne({ email });
+        // Find user using username OR email
+        const user = await User.findOne({
+            $or: [
+                { email: login.toLowerCase() },
+                { username: login },
+            ],
+        }).select("+password");
 
         if (user && (await user.matchPassword(password))) {
             return res.json({
@@ -60,8 +75,8 @@ export const loginUser = async (req, res) => {
             });
         }
 
-        res.status(401).json({
-            message: "Invalid email or password",
+        return res.status(401).json({
+            message: "Invalid username/email or password",
         });
 
     } catch (error) {
@@ -71,7 +86,8 @@ export const loginUser = async (req, res) => {
     }
 };
 
-//Current User
+
+// Current User
 export const getMe = async (req, res) => {
     res.json(req.user);
 };
