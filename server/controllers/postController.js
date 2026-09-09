@@ -84,8 +84,34 @@ const getAllPosts = async (req, res) => {
     }
 };
 
+// GET LOGGED-IN USER'S POSTS
+
+const getMyPosts = async (req, res) => {
+    try {
+        const posts = await Post.find({
+            userId: req.user._id,
+        })
+            .populate("userId", "username")
+            .sort({ createdAt: -1 });
+
+        return res.status(200).json({
+            success: true,
+            count: posts.length,
+            posts,
+        });
+
+    } catch (error) {
+        console.log("GET MY POSTS ERROR:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: error.message,
+        });
+    }
+};
 
 export {
     createPost,
     getAllPosts,
+    getMyPosts
 };
