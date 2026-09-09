@@ -41,7 +41,7 @@ export default function Landing() {
                 {/* Navigation links */}
                 <div className="w-full max-w-[300px] sm:max-w-xs flex flex-col gap-4 px-2">
                     <button
-                        onClick={() => navigate('/register')}
+                        onClick={() => navigate('/login')}
                         className="w-full bg-rose-500 text-white font-bold text-base sm:text-lg tracking-wider uppercase py-4 px-8 rounded-full shadow-lg shadow-rose-500/30 hover:bg-rose-600 hover:shadow-rose-600/40 active:scale-[0.97] transition-all duration-200 ease-out cursor-pointer"
                     >
                         Get Started
