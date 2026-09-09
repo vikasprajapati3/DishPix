@@ -1,5 +1,5 @@
 import express from "express";
-import { createPost, getAllPosts } from "../controllers/postController.js";
+import { createPost, getAllPosts, getMyPosts } from "../controllers/postController.js";
 import protect from "../middleware/authMiddleware.js";
 import upload from "../middleware/uploadMiddleware.js";
 
@@ -11,11 +11,10 @@ router.post("/",
     createPost
 );
 
-// Get all posts for feed
-router.get(
-    "/",
-    protect,
-    getAllPosts
-);
+// for all post
+router.get("/", protect, getAllPosts);
+
+// for current user's post
+router.get("/my-posts", protect, getMyPosts);
 
 export default router;
