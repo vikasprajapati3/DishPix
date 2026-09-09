@@ -10,7 +10,7 @@ export default function Login() {
     const navigate = useNavigate();
     const { login } = useAuth();
 
-    const [email, setEmail] = useState("");
+    const [loginValue, setLoginValue] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
@@ -18,8 +18,8 @@ export default function Login() {
     const handleLogin = async (e) => {
         e.preventDefault();
 
-        if (!email || !password) {
-            alert("Please fill all fields");
+        if (!loginValue.trim() || !password) {
+            alert("Please enter username/email and password");
             return;
         }
 
@@ -28,7 +28,7 @@ export default function Login() {
             const response = await axios.post(
                 `${import.meta.env.VITE_API_URL}/api/auth/login`,
                 {
-                    email,
+                    login: loginValue.trim(),
                     password,
                 }
             );
@@ -40,6 +40,8 @@ export default function Login() {
             navigate("/feed");
 
         } catch (error) {
+            console.error("Login error:", error);
+
             alert(
                 error.response?.data?.message ||
                 "Login failed"
@@ -109,15 +111,15 @@ export default function Login() {
                         <div className="flex flex-col gap-2">
 
                             <label className="text-(--text) text-xs sm:text-sm font-bold tracking-wide uppercase px-1">
-                                Email
+                                Username or Email
                             </label>
 
                             <input
-                                type="email"
-                                placeholder="example@gmail.com"
-                                value={email}
+                                type="text"
+                                placeholder="Enter username or email"
+                                value={loginValue}
                                 onChange={(e) =>
-                                    setEmail(e.target.value)
+                                    setLoginValue(e.target.value)
                                 }
                                 className="w-full bg-(--card) border border-(--border) rounded-full px-5 py-3 text-(--text) text-sm sm:text-base placeholder:text-(--muted) focus:outline-none focus:border-(--primary) transition-all"
                             />
