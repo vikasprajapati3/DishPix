@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FaChevronLeft } from "react-icons/fa";
@@ -14,10 +14,10 @@ export default function CreatePost() {
         caption: "",
         rating: 5,
         location: "",
+        image: null,
     });
 
     const [loading, setLoading] = useState(false);
-
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
@@ -34,7 +34,6 @@ export default function CreatePost() {
             [name]: name === "rating" ? Number(value) : value,
         }));
     };
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -54,7 +53,6 @@ export default function CreatePost() {
             data.append("location", form.location);
             data.append("image", form.image);
 
-            // Send the form data to the backend
             const token = localStorage.getItem("token");
 
             await axios.post(
@@ -66,7 +64,6 @@ export default function CreatePost() {
                     },
                 }
             );
-
 
             alert("Post created successfully!");
             navigate("/feed");
@@ -86,7 +83,7 @@ export default function CreatePost() {
             <div className="flex justify-between items-center mb-4">
                 <button
                     onClick={() => navigate(-1)}
-                    className="text-sm text-(--muted)"
+                    className="text-sm text-(--muted) flex items-center gap-1"
                 >
                     <FaChevronLeft />
                     Back
@@ -99,10 +96,9 @@ export default function CreatePost() {
 
             <form onSubmit={handleSubmit} className="space-y-4">
 
-                {/* Image Upload */}
+                {/* 1. Image Upload  */}
                 <div>
                     <label className="block text-sm font-medium mb-1">Food Image</label>
-
                     <input
                         type="file"
                         name="image"
@@ -110,36 +106,9 @@ export default function CreatePost() {
                         onChange={handleChange}
                         className="w-full p-2 border border-neutral-300 rounded-lg text-sm bg-white"
                     />
-
                 </div>
 
-                {/* Restaurant */}
-                <div>
-                    <label className="block text-sm font-medium mb-1">Restaurant</label>
-                    <input
-                        type="text"
-                        name="restaurant"
-                        placeholder="e.g. Pizza Haven"
-                        value={form.restaurant}
-                        onChange={handleChange}
-                        className="w-full p-2.5 border border-neutral-300 rounded-lg text-sm bg-white outline-none focus:border-red-500"
-                    />
-                </div>
-
-                {/* Location */}
-                <div>
-                    <label className="block text-sm font-medium mb-1">Location</label>
-                    <input
-                        type="text"
-                        name="location"
-                        placeholder="e.g. New York, NY"
-                        value={form.location}
-                        onChange={handleChange}
-                        className="w-full p-2.5 border border-neutral-300 rounded-lg text-sm bg-white outline-none focus:border-red-500"
-                    />
-                </div>
-
-                {/* Food Name */}
+                {/* 2. Food Name */}
                 <div>
                     <label className="block text-sm font-medium mb-1">Food Name</label>
                     <input
@@ -152,7 +121,33 @@ export default function CreatePost() {
                     />
                 </div>
 
-                {/* Rating */}
+                {/* 3. Restaurant & Location */}
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div>
+                        <label className="block text-sm font-medium mb-1">Restaurant</label>
+                        <input
+                            type="text"
+                            name="restaurant"
+                            placeholder="e.g. Pizza Haven"
+                            value={form.restaurant}
+                            onChange={handleChange}
+                            className="w-full p-2.5 border border-neutral-300 rounded-lg text-sm bg-white outline-none focus:border-red-500"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium mb-1">Location</label>
+                        <input
+                            type="text"
+                            name="location"
+                            placeholder="e.g. New York, NY"
+                            value={form.location}
+                            onChange={handleChange}
+                            className="w-full p-2.5 border border-neutral-300 rounded-lg text-sm bg-white outline-none focus:border-red-500"
+                        />
+                    </div>
+                </div>
+
+                {/* 4. Rating */}
                 <div>
                     <label className="block text-sm font-medium mb-1">Rating</label>
                     <select
@@ -169,7 +164,7 @@ export default function CreatePost() {
                     </select>
                 </div>
 
-                {/* Caption */}
+                {/* 5. Caption */}
                 <div>
                     <label className="block text-sm font-medium mb-1">Caption</label>
                     <textarea
