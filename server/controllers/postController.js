@@ -1,4 +1,4 @@
-import Post from "../models/Post.js";
+import { Post } from "../models/Post.js";
 import cloudinary from "../utils/cloudinary.js";
 import fs from "fs/promises";
 
@@ -7,11 +7,18 @@ import fs from "fs/promises";
 const createPost = async (req, res) => {
     let localFilePath;
     try {
-        const { restaurant, foodName, caption, rating } = req.body;
+        const { restaurant, foodName, caption, rating, location } = req.body;
 
+        // Check image
+        if (!req.file) {
+            return res.status(400).json({
+                success: false,
+                message: "Food image is required",
+            });
+        }
         localFilePath = req.file ? req.file.path : "";
 
-        if (!restaurant || !foodName || !caption || !rating) {
+        if (!restaurant || !foodName || !caption || !rating || !location) {
             return res.status(400).json({
                 success: false,
                 message: "All fields are required",
@@ -29,7 +36,8 @@ const createPost = async (req, res) => {
             restaurant: restaurant,
             foodName: foodName,
             caption: caption,
-            rating: rating,
+            rating: Number(rating),
+            location: location,
             image: result.secure_url,
         });
 
@@ -41,6 +49,7 @@ const createPost = async (req, res) => {
 
         // Delete temporary image from disk 
         await fs.unlink(localFilePath);
+        localFilePath = null;
 
     } catch (error) {
         console.log("POST ERROR:", error);
