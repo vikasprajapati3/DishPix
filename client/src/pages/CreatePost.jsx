@@ -99,13 +99,21 @@ export default function CreatePost() {
                 {/* 1. Image Upload  */}
                 <div>
                     <label className="block text-sm font-medium mb-1">Food Image</label>
-                    <input
-                        type="file"
-                        name="image"
-                        accept="image/*"
-                        onChange={handleChange}
-                        className="w-full p-2 border border-neutral-300 rounded-lg text-sm bg-white"
-                    />
+                    <div className="flex items-center justify-between p-2 border border-neutral-300 rounded-lg bg-white">
+                        <span className="text-sm text-slate-600 px-2 truncate max-w-[200px]">
+                            {form.image ? `Selected: ${form.image.name}` : "No image selected"}
+                        </span>
+                        <label className="cursor-pointer bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium transition">
+                            Browse
+                            <input
+                                type="file"
+                                name="image"
+                                accept="image/*"
+                                onChange={handleChange}
+                                className="hidden"
+                            />
+                        </label>
+                    </div>
                 </div>
 
                 {/* 2. Food Name */}
@@ -114,7 +122,7 @@ export default function CreatePost() {
                     <input
                         type="text"
                         name="foodName"
-                        placeholder="e.g. Pepperoni Pizza"
+                        placeholder="e.g. Corn Pizza"
                         value={form.foodName}
                         onChange={handleChange}
                         className="w-full p-2.5 border border-neutral-300 rounded-lg text-sm bg-white outline-none focus:border-red-500"
@@ -128,7 +136,7 @@ export default function CreatePost() {
                         <input
                             type="text"
                             name="restaurant"
-                            placeholder="e.g. Pizza Haven"
+                            placeholder="e.g. Pizza Hut"
                             value={form.restaurant}
                             onChange={handleChange}
                             className="w-full p-2.5 border border-neutral-300 rounded-lg text-sm bg-white outline-none focus:border-red-500"
@@ -139,7 +147,7 @@ export default function CreatePost() {
                         <input
                             type="text"
                             name="location"
-                            placeholder="e.g. New York, NY"
+                            placeholder="e.g. Kalyan,west"
                             value={form.location}
                             onChange={handleChange}
                             className="w-full p-2.5 border border-neutral-300 rounded-lg text-sm bg-white outline-none focus:border-red-500"
