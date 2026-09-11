@@ -130,4 +130,4 @@ const Comment = mongoose.model("Comment", commentSchema);
 
 
 
-export default { Post, Like, Comment };
+export { Post, Like, Comment };
