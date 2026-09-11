@@ -13,6 +13,7 @@ export default function CreatePost() {
         foodName: "",
         caption: "",
         rating: 5,
+        location: "",
     });
 
     const [loading, setLoading] = useState(false);
@@ -38,7 +39,7 @@ export default function CreatePost() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!form.restaurant.trim() || !form.foodName.trim() || !form.caption.trim() || !form.image) {
+        if (!form.restaurant.trim() || !form.foodName.trim() || !form.caption.trim() || !form.image || !form.location.trim()) {
             alert("Please fill in all fields and add an image");
             return;
         }
@@ -50,13 +51,14 @@ export default function CreatePost() {
             data.append("foodName", form.foodName);
             data.append("caption", form.caption);
             data.append("rating", form.rating);
+            data.append("location", form.location);
             data.append("image", form.image);
 
             // Send the form data to the backend
             const token = localStorage.getItem("token");
 
             await axios.post(
-                `${import.meta.env.VITE_API_URL}/api/posts`,
+                `${import.meta.env.VITE_API_URL}/api/posts/create-post`,
                 data,
                 {
                     headers: {
@@ -119,6 +121,19 @@ export default function CreatePost() {
                         name="restaurant"
                         placeholder="e.g. Pizza Haven"
                         value={form.restaurant}
+                        onChange={handleChange}
+                        className="w-full p-2.5 border border-neutral-300 rounded-lg text-sm bg-white outline-none focus:border-red-500"
+                    />
+                </div>
+
+                {/* Location */}
+                <div>
+                    <label className="block text-sm font-medium mb-1">Location</label>
+                    <input
+                        type="text"
+                        name="location"
+                        placeholder="e.g. New York, NY"
+                        value={form.location}
                         onChange={handleChange}
                         className="w-full p-2.5 border border-neutral-300 rounded-lg text-sm bg-white outline-none focus:border-red-500"
                     />
