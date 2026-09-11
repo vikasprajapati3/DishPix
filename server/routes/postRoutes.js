@@ -5,11 +5,7 @@ import upload from "../middleware/uploadMiddleware.js";
 
 const router = express.Router();
 
-router.post("/",
-    protect,
-    upload.single("image"),
-    createPost
-);
+router.post("/create-post", protect, upload.single("image"), createPost);
 
 // for all post
 router.get("/", protect, getAllPosts);
