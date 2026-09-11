@@ -100,7 +100,7 @@ export default function CreatePost() {
                 <div>
                     <label className="block text-sm font-medium mb-1">Food Image</label>
                     <div className="flex items-center justify-between p-2 border border-neutral-300 rounded-lg bg-white">
-                        <span className="text-sm text-slate-600 px-2 truncate max-w-[200px]">
+                        <span className="text-sm text-slate-600 px-2 truncate max-w-50">
                             {form.image ? `Selected: ${form.image.name}` : "No image selected"}
                         </span>
                         <label className="cursor-pointer bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium transition">

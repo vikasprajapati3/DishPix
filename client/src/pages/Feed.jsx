@@ -59,14 +59,6 @@ export default function Feed() {
         );
     }
 
-    if (error) {
-        return (
-            <div>
-                {error}
-            </div>
-        );
-    }
-
     // // Like / Unlike post
     // const handleLike = (postId) => {
     //     setPosts((currentPosts) =>
