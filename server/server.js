@@ -5,7 +5,7 @@ import cors from "cors";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
-
+import interactionRoutes from "./routes/interactionRoutes.js";
 
 
 const app = express();
@@ -32,7 +32,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", authRoutes);
 
 app.use("/api/posts", postRoutes);
-
+app.use("/api/interactions", interactionRoutes);
 
 // Start Server
 const PORT = process.env.PORT || 5000;
