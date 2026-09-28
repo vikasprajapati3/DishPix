@@ -11,11 +11,11 @@ const router = express.Router();
 
 
 // Like a post
-router.post("/:postId", protect, likePost);
+router.post("/:postId/like", protect, likePost);
 
 
 // Unlike a post
-router.delete("/:postId", protect, unlikePost);
+router.delete("/:postId/like", protect, unlikePost);
 
 
 export default router;

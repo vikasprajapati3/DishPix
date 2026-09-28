@@ -32,7 +32,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", authRoutes);
 
 app.use("/api/posts", postRoutes);
-app.use("/api/likes", likeRoutes);
+app.use("/api/posts", likeRoutes);
 
 // Start Server
 const PORT = process.env.PORT || 5000;
