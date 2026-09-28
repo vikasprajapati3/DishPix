@@ -1,17 +1,21 @@
 import express from "express";
 
 import {
-    likePost
-} from "../controllers/interactionController.js";
+    likePost,
+    unlikePost,
+} from "../controllers/likeController.js";
 
 import protect from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
 
-// Like / Unlike post
-router.post("/posts/:postId/like", protect, likePost);
+// Like a post
+router.post("/:postId", protect, likePost);
 
+
+// Unlike a post
+router.delete("/:postId", protect, unlikePost);
 
 
 export default router;
