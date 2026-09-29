@@ -59,6 +59,43 @@ const createComment = async (req, res) => {
 };
 
 
+// Get Comments
+const getComments = async (req, res) => {
+    try {
+        const { postId } = req.params;
+
+        // Check post
+        const post = await Post.findById(postId);
+
+        if (!post) {
+            return res.status(404).json({
+                success: false,
+                message: "Post not found",
+            });
+        }
+
+        // Get comments
+        const comments = await Comment.find({ post: postId })
+            .populate("user", "username profileImage")
+            .sort({ createdAt: -1 });
+
+        return res.status(200).json({
+            success: true,
+            count: comments.length,
+            comments,
+        });
+
+    } catch (error) {
+        console.error("Get Comments Error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Failed to get comments",
+        });
+    }
+};
+
 export {
-    createComment
+    createComment,
+    getComments
 };
