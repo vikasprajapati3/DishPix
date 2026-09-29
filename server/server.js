@@ -6,6 +6,7 @@ import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import postRoutes from "./routes/postRoutes.js";
 import likeRoutes from "./routes/likeRoutes.js";
+import commentRoutes from "./routes/commentRoutes.js"
 
 
 const app = express();
@@ -33,6 +34,7 @@ app.use("/api/users", authRoutes);
 
 app.use("/api/posts", postRoutes);
 app.use("/api/posts", likeRoutes);
+app.use("/api", commentRoutes);
 
 // Start Server
 const PORT = process.env.PORT || 5000;
