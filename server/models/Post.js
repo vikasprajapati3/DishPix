@@ -62,35 +62,6 @@ const postSchema = new mongoose.Schema(
 const Post = mongoose.model("Post", postSchema);
 
 
-const commentSchema = new mongoose.Schema(
-    {
-        userId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "User",
-            required: true,
-        },
-
-        postId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Post",
-            required: true,
-        },
-
-        text: {
-            type: String,
-            required: true,
-            trim: true,
-        },
-    },
-    {
-        timestamps: true,
-    }
-);
 
 
-const Comment = mongoose.model("Comment", commentSchema);
-
-
-
-
-export { Post, Comment };
+export { Post };
