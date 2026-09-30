@@ -38,7 +38,11 @@ const createPost = async (req, res) => {
             caption: caption,
             rating: Number(rating),
             location: location,
-            image: result.secure_url,
+            image: {
+                url: result.secure_url,
+                publicId: result.public_id,
+            },
+
         });
 
 
