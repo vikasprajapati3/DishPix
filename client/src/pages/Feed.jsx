@@ -154,7 +154,6 @@ export default function Feed() {
                             >
                                 <PostCard
                                     post={post}
-                                //  onLike={handleLike}
                                 />
                             </div>
                         ))}

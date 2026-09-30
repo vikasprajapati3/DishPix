@@ -55,7 +55,11 @@ export default function PostCard({
             {/* Post Image */}
             <div className="w-full bg-neutral-100">
                 <img
-                    src={post.image}
+                    src={
+                        typeof post.image === "string"
+                            ? post.image
+                            : post.image?.url
+                    }
                     alt={post.caption || "Shared dish"}
                     className="block w-full h-auto object-cover"
                     onDoubleClick={() => onLike?.(post._id)}
