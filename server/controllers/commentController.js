@@ -95,7 +95,71 @@ const getComments = async (req, res) => {
     }
 };
 
+// Delete Comment
+const deleteComment = async (req, res) => {
+    try {
+        const { commentId } = req.params;
+        const userId = req.user.id;
+
+        // Find comment
+        const comment = await Comment.findById(commentId);
+
+        if (!comment) {
+            return res.status(404).json({
+                success: false,
+                message: "Comment not found",
+            });
+        }
+
+        // Find post
+        const post = await Post.findById(comment.post);
+
+        if (!post) {
+            return res.status(404).json({
+                success: false,
+                message: "Post not found",
+            });
+        }
+
+        // Check authorization
+        const isCommentOwner =
+            comment.user.toString() === userId.toString();
+
+        const isPostOwner =
+            post.userId.toString() === userId.toString();
+
+        if (!isCommentOwner && !isPostOwner) {
+            return res.status(403).json({
+                success: false,
+                message: "You are not authorized to delete this comment",
+            });
+        }
+
+        // Delete comment
+        await Comment.findByIdAndDelete(commentId);
+
+        // Decrease comment count
+        await Post.findByIdAndUpdate(comment.post, {
+            $inc: { commentsCount: -1 },
+        });
+
+        return res.status(200).json({
+            success: true,
+            message: "Comment deleted successfully",
+        });
+
+    } catch (error) {
+        console.error("Delete Comment Error:", error);
+
+        return res.status(500).json({
+            success: false,
+            message: "Failed to delete comment",
+        });
+    }
+};
+
 export {
     createComment,
-    getComments
+    getComments,
+    deleteComment
 };
