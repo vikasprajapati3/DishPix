@@ -34,8 +34,14 @@ const postSchema = new mongoose.Schema(
         },
 
         image: {
-            type: String,
-            required: true,
+            url: {
+                type: String,
+                required: true,
+            },
+            publicId: {
+                type: String,
+                required: true,
+            },
         },
 
         location: {
