@@ -9,10 +9,8 @@ import protect from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-
 // Like a post
 router.post("/:postId/like", protect, likePost);
-
 
 // Unlike a post
 router.delete("/:postId/like", protect, unlikePost);
