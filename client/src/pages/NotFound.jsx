@@ -1,12 +1,16 @@
 
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import SideNavbar from "../components/SideNavbar";
 
 export default function NotFound() {
     const { user } = useAuth();
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center gap-4 px-4 text-center">
+
+            <SideNavbar />
+
             <h1 className="text-6xl font-black text-(--primary)">
                 404
             </h1>
