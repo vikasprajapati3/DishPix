@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../api/api";
 import { useNavigate } from "react-router-dom";
 import { FaChevronLeft } from "react-icons/fa";
 import SideNavbar from "../components/SideNavbar";
@@ -53,17 +53,9 @@ export default function CreatePost() {
             data.append("location", form.location);
             data.append("image", form.image);
 
-            const token = localStorage.getItem("token");
 
-            await axios.post(
-                `${import.meta.env.VITE_API_URL}/api/posts/create-post`,
-                data,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
+            await api.post("/api/posts/create-post", data);
+
 
             alert("Post created successfully!");
             navigate("/feed");
