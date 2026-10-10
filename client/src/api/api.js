@@ -14,8 +14,12 @@ api.interceptors.request.use(
         }
 
         return config;
-    },
-    (error) => Promise.reject(error)
-);
+    });
+
+// User API functions
+export const getMe = () => api.get("/api/users/me");
+
+export const updateMe = (userData) =>
+    api.patch("/api/users/me", userData);
 
 export default api;
