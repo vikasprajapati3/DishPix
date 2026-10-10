@@ -1,8 +1,8 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SideNavbar from "../components/SideNavbar";
 import BottomNavbar from "../components/BottomNavbar";
+import api from "../api/api";
 
 export default function Profile() {
     const navigate = useNavigate();
@@ -13,16 +13,8 @@ export default function Profile() {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const token = localStorage.getItem("token");
 
-                const response = await fetch(
-                    `${import.meta.env.VITE_API_URL}/api/users/me`,
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
-                    }
-                );
+                const response = await api.get("/api/users/me");
 
                 const data = await response.json();
 
