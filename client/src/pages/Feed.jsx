@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../api/api";
 import BottomNavbar from "../components/BottomNavbar";
 import PostCard from "../components/PostCard";
 import SideNavbar from "../components/SideNavbar";
@@ -20,32 +21,20 @@ export default function Feed() {
         try {
             setLoading(true);
 
-            const token = localStorage.getItem("token");
 
-            const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/posts`,
-                {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
+            const response = await api.get("/api/posts");
 
-            const data = await response.json();
-
-            if (!response.ok) {
-                throw new Error(
-                    data.message || "Failed to fetch posts"
-                );
-            }
-
+            const data = await response.data;
             setPosts(data.posts);
 
         } catch (error) {
             console.error("FETCH POSTS ERROR:", error);
-            setError(error.message);
+
+            setError(
+                error.response?.data?.message ||
+                error.message ||
+                "Failed to fetch posts"
+            );
         } finally {
             setLoading(false);
         }

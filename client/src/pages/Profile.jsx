@@ -16,15 +16,13 @@ export default function Profile() {
 
                 const response = await api.get("/api/users/me");
 
-                const data = await response.json();
+                const data = await response.data;
+                setUser(data);
 
-                if (response.ok) {
-                    setUser(data);
-                } else {
-                    console.error(data.message);
-                }
             } catch (error) {
-                console.error("Failed to fetch user:", error);
+                console.error("Failed to fetch user:",
+                    error.response?.data?.message || error.message
+                );
             } finally {
                 setLoading(false);
             }
