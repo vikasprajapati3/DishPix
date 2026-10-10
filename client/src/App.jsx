@@ -9,8 +9,10 @@ import CreatePost from "./pages/CreatePost";
 import Profile from "./pages/Profile";
 import Notification from "./pages/Notification";
 
+import PublicRoute from "./components/PublicRoute";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Search from "./pages/SearchPage";
+import NotFound from "./pages/NotFound";
 
 export default function App() {
     return (
@@ -18,11 +20,13 @@ export default function App() {
             <Router>
                 <Routes>
 
-                    <Route path="/" element={<Landing />} />
 
-                    <Route path="/login" element={<Login />} />
+                    <Route element={<PublicRoute />}>
+                        <Route path="/" element={<Landing />} />
 
-                    <Route path="/register" element={<Register />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/register" element={<Register />} />
+                    </Route>
 
 
                     <Route element={<ProtectedRoute />}>
@@ -34,6 +38,7 @@ export default function App() {
 
                     </Route>
 
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </Router>
         </AuthProvider>
