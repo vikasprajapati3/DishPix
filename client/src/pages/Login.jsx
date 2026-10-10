@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import axios from "axios";
+import api from "../api/api";
 import foodBg from "../assets/food_bg1.png";
 import { FaChevronLeft, FaEye } from "react-icons/fa";
 
@@ -25,12 +25,10 @@ export default function Login() {
 
         try {
             setLoading(true);
-            const response = await axios.post(
-                `${import.meta.env.VITE_API_URL}/api/auth/login`,
-                {
-                    login: loginValue.trim(),
-                    password,
-                }
+            const response = await api.post({
+                login: loginValue.trim(),
+                password,
+            }
             );
 
             const data = response.data;
