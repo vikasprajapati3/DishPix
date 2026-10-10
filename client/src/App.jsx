@@ -13,6 +13,7 @@ import PublicRoute from "./components/PublicRoute";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Search from "./pages/SearchPage";
 import NotFound from "./pages/NotFound";
+import EditProfile from "./pages/EditProfile";
 
 export default function App() {
     return (
@@ -31,6 +32,7 @@ export default function App() {
 
                     <Route element={<ProtectedRoute />}>
                         <Route path="/profile" element={<Profile />} />
+                        <Route path="/edit-profile" element={<EditProfile />} />
                         <Route path="/feed" element={<Feed />} />
                         <Route path="/create-post" element={<CreatePost />} />
                         <Route path="/search" element={<Search />} />
