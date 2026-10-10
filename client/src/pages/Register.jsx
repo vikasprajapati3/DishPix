@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import axios from "axios";
+import api from "../api/api";
 import foodBg from "../assets/food_bg1.png";
 import {
     FaChevronLeft,
@@ -41,14 +41,11 @@ export default function Register() {
         try {
             setLoading(true);
 
-            const response = await axios.post(
-                `${import.meta.env.VITE_API_URL}/api/auth/register`,
-                {
-                    username: username.trim(),
-                    email: email.trim(),
-                    password,
-                }
-            );
+            const response = await api.post("/api/auth/register", {
+                username: username.trim(),
+                email: email.trim(),
+                password,
+            });
 
             const data = response.data;
 

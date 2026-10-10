@@ -25,11 +25,10 @@ export default function Login() {
 
         try {
             setLoading(true);
-            const response = await api.post({
+            const response = await api.post("/api/auth/login", {
                 login: loginValue.trim(),
                 password,
-            }
-            );
+            });
 
             const data = response.data;
 
