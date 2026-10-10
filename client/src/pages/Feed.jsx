@@ -23,7 +23,7 @@ export default function Feed() {
             const token = localStorage.getItem("token");
 
             const response = await fetch(
-                ` ${import.meta.env.VITE_API_URL}/api/posts`,
+                `${import.meta.env.VITE_API_URL}/api/posts`,
                 {
                     method: "GET",
                     headers: {
