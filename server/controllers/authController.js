@@ -1,5 +1,7 @@
 import User from "../models/User.js";
 import generateToken from "../utils/generateToken.js";
+import cloudinary from "../utils/cloudinary.js";
+import fs from "fs/promises";
 
 // Register User
 export const registerUser = async (req, res) => {
@@ -174,5 +176,64 @@ export const updateProfile = async (req, res) => {
         res.status(500).json({
             message: error.message,
         });
+    }
+};
+
+export const uploadProfileImage = async (req, res) => {
+    let localFilePath;
+
+    try {
+        if (!req.file) {
+            return res.status(400).json({
+                message: "Please select a profile image",
+            });
+        }
+
+        localFilePath = req.file.path;
+
+        // Upload image to Cloudinary
+        const result = await cloudinary.uploader.upload(localFilePath, {
+            folder: "Dishpix/ProfileImages",
+            resource_type: "image",
+        });
+
+        const user = await User.findById(req.user._id);
+
+        if (!user) {
+            // The uploaded Cloudinary image may need cleanup
+            await cloudinary.uploader.destroy(result.public_id);
+
+            return res.status(404).json({
+                message: "User not found",
+            });
+        }
+
+        user.profileImage = result.secure_url;
+        await user.save();
+
+        return res.json({
+            message: "Profile image uploaded successfully",
+            user: {
+                username: user.username,
+                profileImage: user.profileImage,
+            },
+        });
+    } catch (error) {
+        console.error("Profile image upload error:", error);
+
+        return res.status(500).json({
+            message: "Failed to upload profile image",
+        });
+    } finally {
+        // Remove temporary file from the local uploads folder
+        if (localFilePath) {
+            try {
+                await fs.unlink(localFilePath);
+            } catch (error) {
+                if (error.code !== "ENOENT") {
+                    console.error("Temporary file cleanup error:", error);
+                }
+            }
+        }
     }
 };
