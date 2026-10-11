@@ -6,8 +6,8 @@ export default function Notification() {
     return (
         <div>
             <SideNavbar />
-            <div className="ml-70">
-                <h3 className="text-(--muted) text-2xl font-bold">
+            <div className="flex min-h-[60vh] items-center justify-center px-4 text-center">
+                <h3 className="text-(--muted) text-xl sm:text-2xl font-bold">
                     This page is under maintenance
                 </h3>
             </div>
