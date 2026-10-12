@@ -11,6 +11,7 @@ export default function Feed() {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const [likingPosts, setLikingPosts] = useState([]);
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -33,6 +34,48 @@ export default function Feed() {
 
         fetchPosts();
     }, []);
+
+    const handleLike = async (postId) => {
+        if (likingPosts.includes(postId)) return;
+
+        const post = posts.find((item) => item._id === postId);
+        if (!post) return;
+
+        setLikingPosts((current) => [...current, postId]);
+
+        try {
+            if (post.isLikedByMe) {
+                await api.delete(`/api/posts/${postId}/like`);
+            } else {
+                await api.post(`/api/posts/${postId}/like`);
+            }
+
+            setPosts((currentPosts) =>
+                currentPosts.map((item) =>
+                    item._id === postId
+                        ? {
+                            ...item,
+                            isLikedByMe: !post.isLikedByMe,
+                            likesCount: Math.max(
+                                0,
+                                (item.likesCount || 0) +
+                                (post.isLikedByMe ? -1 : 1)
+                            ),
+                        }
+                        : item
+                )
+            );
+        } catch (error) {
+            alert(
+                error.response?.data?.message ||
+                "Unable to update like. Please try again."
+            );
+        } finally {
+            setLikingPosts((current) =>
+                current.filter((id) => id !== postId)
+            );
+        }
+    };
 
     return (
         <div className="w-full min-h-screen bg-white font-sans pb-16 overflow-x-hidden">
@@ -94,7 +137,9 @@ export default function Feed() {
                                         : ""
                                 }
                             >
-                                <PostCard post={post} />
+                                <PostCard
+                                    post={post}
+                                    onLike={handleLike} />
                             </div>
                         ))}
                     </div>
