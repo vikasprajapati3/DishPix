@@ -104,7 +104,7 @@ export default function PostCard({
                                 icon={faHeart}
                                 className={`text-[21px] transition-colors ${post.isLikedByMe
                                     ? "text-rose-500"
-                                    : "text-neutral-800 group-hover:text-rose-500"
+                                    : "text-neutral-800"
                                     }`} />
                             <span className="text-sm font-bold text-neutral-800">
                                 {post.likesCount ?? 0}
