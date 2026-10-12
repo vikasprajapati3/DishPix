@@ -1,6 +1,7 @@
 import { Post } from "../models/Post.js";
 import cloudinary from "../utils/cloudinary.js";
 import fs from "fs/promises";
+import Like from "../models/Like.js";
 
 
 // new post
@@ -73,18 +74,27 @@ const createPost = async (req, res) => {
 const getAllPosts = async (req, res) => {
     try {
         const posts = await Post.find()
-            .populate(
-                "userId",
-                "username"
-            )
-            .sort({
-                createdAt: -1,
-            });
+            .populate("userId", "username")
+            .sort({ createdAt: -1 });
+
+        const likes = await Like.find({
+            user: req.user._id,
+            post: { $in: posts.map((post) => post._id) },
+        }).select("post");
+
+        const likedPostIds = new Set(
+            likes.map((like) => like.post.toString())
+        );
+
+        const updatedPosts = posts.map((post) => ({
+            ...post.toObject(),
+            isLikedByMe: likedPostIds.has(post._id.toString()),
+        }));
 
         return res.status(200).json({
             success: true,
-            count: posts.length,
-            posts,
+            count: updatedPosts.length,
+            posts: updatedPosts,
         });
 
     } catch (error) {
