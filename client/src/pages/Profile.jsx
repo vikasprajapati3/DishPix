@@ -135,7 +135,7 @@ export default function Profile() {
                     {/* Posts Section */}
                     <section className="space-y-6 px-2 sm:px-0">
                         <div className="flex items-center justify-center border-t border-slate-200/80 pt-4">
-                            <h2 className="text-s font-bold  tracking-widest text-black-500">
+                            <h2 className="text-s font-bold  tracking-widest text-slate-500">
                                 Posts
                             </h2>
                         </div>
@@ -184,11 +184,11 @@ export default function Profile() {
                                             className="h-full w-full object-cover transition duration-300 group-hover:scale-105"
                                         />
 
-                                        <div className="absolute inset-0 flex items-center justify-center gap-4 bg-slate-950/40 text-sm font-semibold text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                                        <div className="absolute inset-0 flex place-items-end justify-end-safe gap-4 bg-slate-950/40 text-sm font-semibold text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
                                             <span className="flex items-center gap-1.5">
                                                 ♥ {post.likesCount || 0}
                                             </span>
-                                            <span className="flex items-center gap-1.5">
+                                            <span className="flex items-center gap-1.5 mr-1">
                                                 💬 {post.commentsCount || 0}
                                             </span>
                                         </div>
