@@ -53,7 +53,7 @@ export default function PostCard({
                 </button>
             </div>
 
-            {/* Post Image (Natural sizing to prevent over-cropping) */}
+            {/* Post Image */}
             {imageUrl ? (
                 <div className="w-full bg-neutral-100 relative group">
                     <img
@@ -63,7 +63,7 @@ export default function PostCard({
                         onDoubleClick={() => onLike?.(post._id)}
                     />
 
-                    {/* Modern Rating Pill Badge */}
+                    {/* Rating  Badge */}
                     {rating > 0 && (
                         <div className="absolute top-3 right-3 bg-neutral-900/50 backdrop-blur-md text-white px-2.5 py-1 rounded-full text-xs font-bold flex items-center gap-1 shadow-md">
                             <span className="text-amber-400">★</span>
@@ -80,10 +80,10 @@ export default function PostCard({
             {/* Post Content */}
             <div className="px-3.5 pt-3 pb-4">
 
-                {/* Single Row: Food Name / Heading + Actions */}
+                {/* Food Name */}
                 <div className="flex items-center justify-between mb-2 gap-2">
 
-                    {/* Left: Food Name */}
+                    {/*  Food Name */}
                     {post.foodName ? (
                         <h3 className="font-bold text-neutral-900 text-base leading-tight">
                             {post.foodName}
@@ -92,7 +92,7 @@ export default function PostCard({
                         <div />
                     )}
 
-                    {/* Right: Like & Comment Actions */}
+                    {/*  Like & Comment Actions */}
                     <div className="flex items-center gap-5 shrink-0">
                         {/* Like */}
                         <button
