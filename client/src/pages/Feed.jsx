@@ -35,40 +35,59 @@ export default function Feed() {
         fetchPosts();
     }, []);
 
+
     const handleLike = async (postId) => {
         if (likingPosts.includes(postId)) return;
 
         const post = posts.find((item) => item._id === postId);
         if (!post) return;
 
+        const wasLiked = Boolean(post.isLikedByMe);
+
+        // Update UI immediately
+        setPosts((currentPosts) =>
+            currentPosts.map((item) =>
+                item._id === postId
+                    ? {
+                        ...item,
+                        isLikedByMe: !wasLiked,
+                        likesCount: Math.max(
+                            0,
+                            (item.likesCount || 0) + (wasLiked ? -1 : 1)
+                        ),
+                    }
+                    : item
+            )
+        );
+
         setLikingPosts((current) => [...current, postId]);
 
         try {
-            if (post.isLikedByMe) {
+            if (wasLiked) {
                 await api.delete(`/api/posts/${postId}/like`);
             } else {
                 await api.post(`/api/posts/${postId}/like`);
             }
-
+        } catch (error) {
+            // Restore previous UI if API request fails
             setPosts((currentPosts) =>
                 currentPosts.map((item) =>
                     item._id === postId
                         ? {
                             ...item,
-                            isLikedByMe: !post.isLikedByMe,
+                            isLikedByMe: wasLiked,
                             likesCount: Math.max(
                                 0,
-                                (item.likesCount || 0) +
-                                (post.isLikedByMe ? -1 : 1)
+                                (item.likesCount || 0) + (wasLiked ? 1 : -1)
                             ),
                         }
                         : item
                 )
             );
-        } catch (error) {
-            alert(
-                error.response?.data?.message ||
-                "Unable to update like. Please try again."
+
+            console.error(
+                "LIKE ERROR:",
+                error.response?.data?.message || error.message
             );
         } finally {
             setLikingPosts((current) =>
@@ -76,6 +95,7 @@ export default function Feed() {
             );
         }
     };
+
 
     return (
         <div className="w-full min-h-screen bg-white font-sans pb-16 overflow-x-hidden">
