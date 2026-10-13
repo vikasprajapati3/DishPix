@@ -64,9 +64,9 @@ export default function Feed() {
 
         try {
             if (wasLiked) {
-                await api.delete(`/api/posts/${postId}/like`);
+                await api.delete(`/api/post/${postId}/like`);
             } else {
-                await api.post(`/api/posts/${postId}/like`);
+                await api.post(`/api/post/${postId}/like`);
             }
         } catch (error) {
             // Restore previous UI if API request fails
