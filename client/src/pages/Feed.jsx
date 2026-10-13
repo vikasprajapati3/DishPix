@@ -5,6 +5,7 @@ import api from "../api/api";
 import BottomNavbar from "../components/BottomNavbar";
 import PostCard from "../components/PostCard";
 import SideNavbar from "../components/SideNavbar";
+import CommentsModal from "../components/CommentModal";
 
 export default function Feed() {
     const navigate = useNavigate();
@@ -12,6 +13,7 @@ export default function Feed() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [likingPosts, setLikingPosts] = useState([]);
+    const [selectedPost, setSelectedPost] = useState(null);
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -98,6 +100,21 @@ export default function Feed() {
         }
     };
 
+    const handleCommentCountChange = (postId, change) => {
+        setPosts((currentPosts) =>
+            currentPosts.map((post) =>
+                post._id === postId
+                    ? {
+                        ...post,
+                        commentsCount: Math.max(
+                            0,
+                            (post.commentsCount || 0) + change
+                        ),
+                    }
+                    : post
+            )
+        );
+    };
 
     return (
         <div className="w-full min-h-screen bg-white font-sans pb-16 overflow-x-hidden">
@@ -161,7 +178,9 @@ export default function Feed() {
                             >
                                 <PostCard
                                     post={post}
-                                    onLike={handleLike} />
+                                    onLike={handleLike}
+                                    onComments={() => setSelectedPost(post)}
+                                />
                             </div>
                         ))}
                     </div>
@@ -169,6 +188,13 @@ export default function Feed() {
             </main>
 
             <BottomNavbar />
+            {selectedPost && (
+                <CommentsModal
+                    post={selectedPost}
+                    onClose={() => setSelectedPost(null)}
+                    onCountChange={handleCommentCountChange}
+                />
+            )}
         </div>
     );
 }
