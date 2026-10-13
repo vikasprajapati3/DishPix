@@ -3,11 +3,14 @@ import { useNavigate } from "react-router-dom";
 import SideNavbar from "../components/SideNavbar";
 import BottomNavbar from "../components/BottomNavbar";
 import api from "../api/api";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { useAuth } from "../context/AuthContext";
 
 export default function Profile() {
     const navigate = useNavigate();
 
-    const [user, setUser] = useState(null);
+    const { user, logout } = useAuth();
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [postsLoading, setPostsLoading] = useState(true);
@@ -15,14 +18,6 @@ export default function Profile() {
 
     useEffect(() => {
         const fetchProfile = async () => {
-            try {
-                const { data } = await api.get("/api/users/me");
-                setUser(data);
-            } catch (err) {
-                setError("Unable to load profile.");
-            } finally {
-                setLoading(false);
-            }
 
             try {
                 const { data } = await api.get("/api/posts/my-posts");
@@ -37,7 +32,13 @@ export default function Profile() {
         fetchProfile();
     }, []);
 
-    if (loading) {
+
+    const handleLogout = () => {
+        logout();
+        navigate("/login", { replace: true });
+    };
+
+    if (!user) {
         return (
             <div className="flex min-h-screen items-center justify-center bg-slate-50">
                 <div className="flex flex-col items-center gap-3">
@@ -93,12 +94,26 @@ export default function Profile() {
                                         </p>
                                     </div>
 
-                                    <button
-                                        onClick={() => navigate("/edit-profile")}
-                                        className="rounded-xl border border-slate-200 bg-slate-50 px-5 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 active:scale-98"
-                                    >
-                                        Edit profile
-                                    </button>
+                                    <div className="flex items-center gap-2">
+                                        <button
+                                            onClick={() => navigate("/edit-profile")}
+                                            className="rounded-xl border border-slate-200 bg-slate-50 px-5 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 active:scale-98"
+                                        >
+                                            Edit profile
+                                        </button>
+
+                                        {/* Logout Button */}
+                                        <button
+                                            onClick={handleLogout}
+                                            className="p-2 text-slate-400 hover:text-red-600 transition rounded-lg hover:bg-slate-100"
+                                            title="Logout"
+                                        >
+                                            <FontAwesomeIcon
+                                                icon={faRightFromBracket}
+                                                className="text-lg"
+                                            />
+                                        </button>
+                                    </div>
                                 </div>
 
                                 {/* Instagram-style Stats Structure */}
@@ -124,7 +139,7 @@ export default function Profile() {
                                 </div>
 
                                 {user.bio && (
-                                    <p className="mt-4 whitespace-pre-wrap break-words text-sm leading-normal text-slate-800">
+                                    <p className="mt-4 whitespace-pre-wrap wrap-break-word text-sm leading-normal text-slate-800">
                                         {user.bio}
                                     </p>
                                 )}
