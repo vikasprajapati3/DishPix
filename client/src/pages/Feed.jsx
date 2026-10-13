@@ -64,9 +64,9 @@ export default function Feed() {
 
         try {
             if (wasLiked) {
-                await api.delete(`/api/post/${postId}/like`);
+                await api.delete(`/api/posts/${postId}/like`);
             } else {
-                await api.post(`/api/post/${postId}/like`);
+                await api.post(`/api/posts/${postId}/like`);
             }
         } catch (error) {
             // Restore previous UI if API request fails
@@ -89,6 +89,8 @@ export default function Feed() {
                 "LIKE ERROR:",
                 error.response?.data?.message || error.message
             );
+            //show alert message
+            alert(wasLiked ? "Unlike failed" : "Like failed");
         } finally {
             setLikingPosts((current) =>
                 current.filter((id) => id !== postId)
